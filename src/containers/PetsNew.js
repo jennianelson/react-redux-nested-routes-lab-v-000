@@ -13,9 +13,10 @@ class PetsNew extends Component {
 
   handleOnSubmit = event => {
     event.preventDefault();
-    const { addPet, history } = this.props
+    const { addPet, history, lastPetId } = this.props
     addPet(this.state);
-    history.push('/pets');
+    history.push("/pets")
+    // history.push(`/pets/${lastPetId + 1}`);
   }
 
   handleOnChange = event => {
@@ -48,4 +49,8 @@ class PetsNew extends Component {
   }
 };
 
-export default connect(null, { addPet })(PetsNew);
+const mapStateToProps = (state) => {
+  return {lastPetId : state.pets.length}
+}
+
+export default connect(mapStateToProps, { addPet })(PetsNew);
